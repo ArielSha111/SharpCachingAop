@@ -73,17 +73,14 @@ public class ExampleUsage
     public string GetData(int id)
     {
         // Method implementation
-    }
-
-    public void ConfigureServices(IServiceCollection services)
-    {
-        // Register services in service collection
-        services.SetSharpCachingAopRegistration(Configuration, true, true);
-        
-        // Inject cacheable services and interceptors
-        services.AddInterceptedSingleton<IMyService, MyService, AsyncCachingInterceptor>();
-    }
+    }   
 }
+
+// Register services in service collection
+services.SetSharpCachingAopRegistration(Configuration, true, true);
+
+// Inject cacheable services and interceptors
+services.AddInterceptedSingleton<IMyService, MyService, AsyncCachingInterceptor>();
 ```
 
 ## Dependencies
