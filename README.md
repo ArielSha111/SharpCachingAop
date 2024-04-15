@@ -83,6 +83,7 @@ public class ExampleUsage
         services.AddInterceptedSingleton<IMyService, MyService, AsyncCachingInterceptor>();
     }
 }
+```
 
 ## Dependencies
 - Castle.Core (for dynamic proxy generation)
