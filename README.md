@@ -50,23 +50,16 @@ CachingDiManager contains extension methods for registering caching and AOP serv
 6. **Enjoy Improved Performance**: Enjoy improved performance and reduced redundant computations by leveraging caching in your application.
 
 ## Example
-
 ```csharp
 using CachingAop.Attributes;
-using CachingAop.Caching;
-using CachingAop.Configuration;
-using CachingAop.Serialization;
-using CachingAop.DI;
 
-// Mark method as cacheable
-[Cacheable("MethodName")]
-public string GetData(int id)
-{
-    // Method implementation
-}
 
-// Register services in service collection
-services.SetSharpCachingAopRegistration();
+## Dependencies
+- Castle.Core (for dynamic proxy generation)
+- Newtonsoft.Json (for serialization with DefaultSerializationProvider)
 
-// Inject caching services and interceptors
-services.AddInterceptedSingleton<IMyService, MyService, AsyncCachingInterceptor>();
+## Contributing
+Contributions are welcome! Please feel free to submit issues or pull requests on the [github repo]
+
+## Support
+For support or questions, please contact [your-email] or visit the [github repo]
