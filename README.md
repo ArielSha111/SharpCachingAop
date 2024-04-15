@@ -56,6 +56,7 @@ using CachingAop.Caching;
 using CachingAop.Configuration;
 using CachingAop.Serialization;
 using CachingAop.DI;
+
 using Microsoft.Extensions.DependencyInjection;
 
 public class ExampleUsage
@@ -77,20 +78,21 @@ public class ExampleUsage
     public void ConfigureServices(IServiceCollection services)
     {
         // Register services in service collection
-        services.SetSharpCachingAopRegistration();
+        services.SetSharpCachingAopRegistration(Configuration, true, true);
         
-        // Inject caching services and interceptors
+        // Inject cacheable services and interceptors
         services.AddInterceptedSingleton<IMyService, MyService, AsyncCachingInterceptor>();
     }
 }
 ```
 
 ## Dependencies
-- Castle.Core (for dynamic proxy generation)
-- Newtonsoft.Json (for serialization with DefaultSerializationProvider)
-
+- Castle.Core (for dynamic proxy generation).
+- Newtonsoft.Json (for serialization with DefaultSerializationProvider).
+- Microsoft.Extensions.Caching.Memory (for caching with DefaultCachingProvider).
+  
 ## Contributing
-Contributions are welcome! Please feel free to submit issues or pull requests on the [github repo]
+Contributions are welcome! Please feel free to submit issues or pull requests on the (github repo)
 
 ## Support
-For support or questions, please contact [your-email] or visit the [github repo]
+For support or questions, please contact [your-email] or visit the (github repo)
