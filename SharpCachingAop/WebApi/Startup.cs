@@ -1,8 +1,6 @@
 ﻿using Service;
 using Model.Http;
 using Model.DB;
-using CachingAop.Interceptors;
-using CachingAop.DI;
 
 public static class Startup
 {

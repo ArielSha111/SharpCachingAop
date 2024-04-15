@@ -1,5 +1,4 @@
-﻿using CachingAop.Attributes;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 
 namespace Model.DB;
 public class DbManager : IDbManager
