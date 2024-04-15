@@ -1,6 +1,8 @@
 ﻿using Service;
 using Model.Http;
 using Model.DB;
+using CachingAop.Interceptors;
+using CachingAop.DI;
 
 public static class Startup
 {
@@ -15,9 +17,15 @@ public static class Startup
 
     private static void SetDiRegistration(IServiceCollection services, IConfiguration Configuration)
     {
+        // Register services in service collection
+        services.SetSharpCachingAopRegistration(Configuration, true, true);
+
+
         services.AddSingleton<IExampleService, ExampleService>();
         services.AddSingleton<IHttpManager, HttpManager>();
-        services.AddSingleton<IDbManager, DbManager>();
+
+        // Inject cacheable services and interceptors
+        services.AddInterceptedSingleton<IDbManager, DbManager, AsyncCachingInterceptor>();
     }
 }
 

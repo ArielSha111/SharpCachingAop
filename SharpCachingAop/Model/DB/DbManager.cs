@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using CachingAop.Attributes;
+using Microsoft.Extensions.Configuration;
 
 namespace Model.DB;
 public class DbManager : IDbManager
@@ -10,6 +11,7 @@ public class DbManager : IDbManager
         _connectionString = configuration.GetSection("AppSettings")["DatabaseConnectionString"];
     }
 
+    [Cacheable("GetStuffFromDB")]
     public object GetStuffFromDB(int num)
     {
         return new object();
