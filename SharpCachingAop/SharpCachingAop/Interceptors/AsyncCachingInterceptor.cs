@@ -35,7 +35,6 @@ public class AsyncCachingInterceptor : IAsyncInterceptor
         }
 
         invocation.Proceed();
-
     }
 
     public async void InterceptAsynchronous(IInvocation invocation)
@@ -58,7 +57,6 @@ public class AsyncCachingInterceptor : IAsyncInterceptor
         }
 
         invocation.Proceed();
-
     }
     #endregion
 

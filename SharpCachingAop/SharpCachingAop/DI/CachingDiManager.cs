@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
+
 namespace CachingAop.DI;
 
 public static class CachingDiManager
@@ -24,6 +25,7 @@ public static class CachingDiManager
     {
         if (useDefaultCachingProvider)
         {
+            services.AddMemoryCache();
             services.AddSingleton<ICachingProvider, MicrosoftCachingProvider>();
         }
 
