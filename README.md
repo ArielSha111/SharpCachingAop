@@ -102,8 +102,9 @@ services.AddInterceptedSingleton<IExampleService, ExampleService, AsyncCachingIn
 
 ## Dependencies
 - Castle.Core (for dynamic proxy generation).
+- Castle.Core.AsyncInterceptor (for async dynamic proxy generation).
 - Newtonsoft.Json (for serialization with DefaultSerializationProvider).
 - Microsoft.Extensions.Caching.Memory (for caching with DefaultCachingProvider).
   
 ## Contributing
-Contributions are welcome! Please feel free to submit issues or pull requests.
+Contributions are welcome! Please feel free to Add new feature, submit issues or pull requests as well as solve all the TODO comments.
