@@ -10,8 +10,9 @@ The CachingAop NuGet package provides a powerful framework for implementing cach
 - **CachingConfigurationBlock**: Configure caching settings globally and for individual cached items.
 - **AsyncCachingInterceptor**: Intercept method invocations and handle caching asynchronously, ensuring optimal performance.
 - **ISerializationProvider**: Define custom serialization providers for object serialization operations.
-- **MicrosoftCachingProvider**: Implementation of ICachingProvider using IMemoryCache for caching operations.
 - **DefaultSerializationProvider**: Default implementation of the ISerializationProvider interface using Newtonsoft.Json for serialization.
+- **ICachingProvider**: Define custom caching providers for caching operations.
+- **MicrosoftCachingProvider**: Implementation of ICachingProvider using IMemoryCache for caching operations.
 - **Dependency Injection Support**: Register caching and AOP services in the service collection with ease, allowing for seamless integration into existing applications.
 
 ## Components
@@ -31,6 +32,10 @@ The AsyncCachingInterceptor class implements the IAsyncInterceptor interface and
 ### ISerializationProvider and DefaultSerializationProvider
 
 ISerializationProvider defines an interface for object serialization operations, allowing developers to define custom serialization providers if needed. DefaultSerializationProvider provides a default implementation using Newtonsoft.Json for serialization.
+
+### ICachingProvider and DefaultSerializationProvider
+
+The ICachingProvider interface represents a provider for caching operations, allowing synchronous and asynchronous access to cached data.
 
 ### Dependency Injection Support
 
@@ -101,7 +106,4 @@ services.AddInterceptedSingleton<IExampleService, ExampleService, AsyncCachingIn
 - Microsoft.Extensions.Caching.Memory (for caching with DefaultCachingProvider).
   
 ## Contributing
-Contributions are welcome! Please feel free to submit issues or pull requests on the (github repo)
-
-## Support
-For support or questions, please contact [your-email] or visit the (github repo)
+Contributions are welcome! Please feel free to submit issues or pull requests.
