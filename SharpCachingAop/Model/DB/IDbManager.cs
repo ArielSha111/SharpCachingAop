@@ -2,6 +2,6 @@
 {
     public interface IDbManager
     {
-      
+        public object GetStuffFromDB(int num);
     }
 }

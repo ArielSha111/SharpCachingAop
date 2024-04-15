@@ -9,4 +9,9 @@ public class DbManager : IDbManager
     {
         _connectionString = configuration.GetSection("AppSettings")["DatabaseConnectionString"];
     }
+
+    public object GetStuffFromDB(int num)
+    {
+        return new object();
+    }
 }

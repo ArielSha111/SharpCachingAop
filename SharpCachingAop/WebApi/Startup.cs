@@ -4,16 +4,16 @@ using Model.DB;
 
 public static class Startup
 {
-    public static void ConfigureServices(IServiceCollection services, IConfiguration configuration)
+    public static void ConfigureServices(IServiceCollection services, IConfiguration Configuration)
     {
         services.AddControllers();
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
-        services.AddSingleton(configuration);
-        SetDiRegistration(services);
+        services.AddSingleton(Configuration);
+        SetDiRegistration(services, Configuration);
     }
 
-    private static void SetDiRegistration(IServiceCollection services)
+    private static void SetDiRegistration(IServiceCollection services, IConfiguration Configuration)
     {
         services.AddSingleton<IExampleService, ExampleService>();
         services.AddSingleton<IHttpManager, HttpManager>();
