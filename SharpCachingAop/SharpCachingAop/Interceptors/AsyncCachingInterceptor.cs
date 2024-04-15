@@ -28,7 +28,7 @@ public class AsyncCachingInterceptor : IAsyncInterceptor
     #region external
     public void InterceptSynchronous(IInvocation invocation)
     {
-        if (ShouldIntercept(invocation))//add exception handling
+        if (ShouldIntercept(invocation))//TODO - add exception handling
         {
             HandleCacheableInvocation(invocation);
             return;
@@ -40,7 +40,7 @@ public class AsyncCachingInterceptor : IAsyncInterceptor
 
     public async void InterceptAsynchronous(IInvocation invocation)
     {
-        if (ShouldIntercept(invocation))//add exception handling
+        if (ShouldIntercept(invocation))//TODO - add exception handling
         {
             invocation.ReturnValue = await HandleAsyncCacheableInvocation<object>(invocation);
             return;
@@ -51,7 +51,7 @@ public class AsyncCachingInterceptor : IAsyncInterceptor
 
     public void InterceptAsynchronous<TResult>(IInvocation invocation)
     {
-        if (ShouldIntercept(invocation))//add exception handling
+        if (ShouldIntercept(invocation))//TODO - add exception handling
         {
             invocation.ReturnValue = HandleAsyncCacheableInvocation<TResult>(invocation);
             return;
@@ -88,10 +88,10 @@ public class AsyncCachingInterceptor : IAsyncInterceptor
 
     private CacheableAttribute GetCacheAttribute(IInvocation invocation)
     {
-        var method = invocation.MethodInvocationTarget ?? invocation.Method;//todo check if works in di
-        var cacheAttribute = (CacheableAttribute)Attribute.GetCustomAttribute(method, typeof(CacheableAttribute));
+        var method = invocation.MethodInvocationTarget ?? invocation.Method;
+        var cacheAttribute = (CacheableAttribute)Attribute.GetCustomAttribute(method, typeof(CacheableAttribute))!;
      
-        cacheAttribute.Duration =_configurationBlock.ItemsConfiguration[cacheAttribute.CacheKey].Duration;
+        cacheAttribute!.Duration =_configurationBlock.ItemsConfiguration[cacheAttribute.CacheKey].Duration;
         cacheAttribute.ReturnDeepCopy = _configurationBlock.ItemsConfiguration[cacheAttribute.CacheKey].ReturnDeepCopy;
      
         return cacheAttribute;
@@ -109,7 +109,7 @@ public class AsyncCachingInterceptor : IAsyncInterceptor
         lockObj.Wait(_configurationBlock.DeadLockTimeOut);
         try
         {
-            cacheValue = _cachingProvider.Get<object>(cacheKey);//todo after the set all locked thread will access this get using the lock consider solving it
+            cacheValue = _cachingProvider.Get<object>(cacheKey);
 
             if (cacheValue.HasValue)
                 return cacheValue.Value;
@@ -129,21 +129,21 @@ public class AsyncCachingInterceptor : IAsyncInterceptor
         return invocation.ReturnValue;
     }
 
-    private async Task<TResult> GetOrSetAsync<TResult>(string cacheKey,
+    private async Task<TResult> GetOrSetAsync<TResult>(string fullCacheKey,
         CacheableAttribute cacheAttribute, IInvocation invocation)
     {
         var captureProceedInfo = invocation.CaptureProceedInfo();
 
-        var cacheValue = await _cachingProvider.GetAsync<TResult>(cacheKey);
+        var cacheValue = await _cachingProvider.GetAsync<TResult>(fullCacheKey);
 
         if (cacheValue.HasValue)
             return cacheValue.Value;
 
-        var asyncLock = cacheLocks.GetOrAdd(cacheKey, _ => new SemaphoreSlim(1, 1));
+        var asyncLock = cacheLocks.GetOrAdd(fullCacheKey, _ => new SemaphoreSlim(1, 1));
         await asyncLock.WaitAsync(_configurationBlock.DeadLockTimeOut);
         try
         {
-            cacheValue = await _cachingProvider.GetAsync<TResult>(cacheKey);
+            cacheValue = await _cachingProvider.GetAsync<TResult>(fullCacheKey);
 
             if (cacheValue.HasValue)
                 return cacheValue.Value;
@@ -151,9 +151,9 @@ public class AsyncCachingInterceptor : IAsyncInterceptor
             captureProceedInfo.Invoke();
 
             var result = await (Task<TResult>)invocation.ReturnValue;
-            await _cachingProvider.SetAsync(cacheKey, result, cacheAttribute.Duration);
+            await _cachingProvider.SetAsync(fullCacheKey, result, cacheAttribute.Duration);
             asyncLock.Release();
-            cacheLocks.TryRemove(cacheKey, out _);
+            cacheLocks.TryRemove(fullCacheKey, out _);
 
             return result;
         }
@@ -171,7 +171,7 @@ public class AsyncCachingInterceptor : IAsyncInterceptor
         var methodArguments = GetMethodArguments(invocation);
         var cacheKeyPostFix = string.Join(":", methodArguments.Values);
 
-        var fullCacheKey = $"{cacheKeyPrefix}:{cacheKeyPostFix}";//todo consider add a namespace
+        var fullCacheKey = $"{cacheKeyPrefix}:{cacheKeyPostFix}";//TODO - consider add a namespace
         return fullCacheKey;
     }
 
@@ -193,7 +193,7 @@ public class AsyncCachingInterceptor : IAsyncInterceptor
         if (argValue is string || argValue.GetType().IsPrimitive)
             return $"[{parameterName},{argValue.GetType()},{argValue}]";
 
-        return $"[{parameterName},{argValue.GetType()},{_serializationProvider.SerializeObject(argValue)}]";//make sure to have the ability to configure the newtwon soft to system text
+        return $"[{parameterName},{argValue.GetType()},{_serializationProvider.SerializeObject(argValue)}]";
     }
     #endregion
 }

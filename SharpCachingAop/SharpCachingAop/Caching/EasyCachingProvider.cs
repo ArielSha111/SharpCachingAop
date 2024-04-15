@@ -2,11 +2,11 @@
 
 namespace CachingAop.Caching;
 
-public class EasyCahingProvider : ICachingProvider
+public class EasyCachingProvider : ICachingProvider
 {
-    private readonly IEasyCachingProvider _cachingProvider;//todo replace with native in memory
+    private readonly IEasyCachingProvider _cachingProvider;
 
-    public EasyCahingProvider(IEasyCachingProvider cachingProvider)
+    public EasyCachingProvider(IEasyCachingProvider cachingProvider)
     {
         _cachingProvider = cachingProvider;
     }

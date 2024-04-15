@@ -2,11 +2,11 @@
 
 namespace CachingAop.Caching;
 
-public class MicrosoftCahingProvider : ICachingProvider
+public class MicrosoftCachingProvider : ICachingProvider
 {
     private readonly IMemoryCache _memoryCache;
 
-    public MicrosoftCahingProvider(IMemoryCache memoryCache)
+    public MicrosoftCachingProvider(IMemoryCache memoryCache)
     {
         _memoryCache = memoryCache ?? throw new ArgumentNullException(nameof(memoryCache));
     }
