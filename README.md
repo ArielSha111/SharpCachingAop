@@ -10,7 +10,7 @@ The CachingAop NuGet package provides a powerful framework for implementing cach
 - **CachingConfigurationBlock**: Configure caching settings globally and for individual cached items.
 - **AsyncCachingInterceptor**: Intercept method invocations and handle caching asynchronously, ensuring optimal performance.
 - **ISerializationProvider**: Define custom serialization providers for object serialization operations.
-- **MicrosoftCachingProvider: Implementation of ICachingProvider using IMemoryCache for caching operations.
+- **MicrosoftCachingProvider**: Implementation of ICachingProvider using IMemoryCache for caching operations.
 - **DefaultSerializationProvider**: Default implementation of the ISerializationProvider interface using Newtonsoft.Json for serialization.
 - **Dependency Injection Support**: Register caching and AOP services in the service collection with ease, allowing for seamless integration into existing applications.
 
