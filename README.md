@@ -52,7 +52,37 @@ CachingDiManager contains extension methods for registering caching and AOP serv
 ## Example
 ```csharp
 using CachingAop.Attributes;
+using CachingAop.Caching;
+using CachingAop.Configuration;
+using CachingAop.Serialization;
+using CachingAop.DI;
+using Microsoft.Extensions.DependencyInjection;
 
+public class ExampleUsage
+{
+    private readonly IMyService _myService;
+
+    public ExampleUsage(IMyService myService)
+    {
+        _myService = myService;
+    }
+
+    // Mark method as cacheable
+    [Cacheable("MethodName")]
+    public string GetData(int id)
+    {
+        // Method implementation
+    }
+
+    public void ConfigureServices(IServiceCollection services)
+    {
+        // Register services in service collection
+        services.SetSharpCachingAopRegistration();
+        
+        // Inject caching services and interceptors
+        services.AddInterceptedSingleton<IMyService, MyService, AsyncCachingInterceptor>();
+    }
+}
 
 ## Dependencies
 - Castle.Core (for dynamic proxy generation)
